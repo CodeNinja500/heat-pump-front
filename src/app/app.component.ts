@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TemperatureModel } from './models/temperature.model';
 import { DataService } from './services/data.service';
 import { CompressorModel } from './models/compressor.model';
 import { FanModel } from './models/fan.model';
 import { DefrostModel } from './models/defrost.model';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ import { DefrostModel } from './models/defrost.model';
   standalone: false,
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public readonly temperature$: Observable<TemperatureModel[]> =
     this.dataService.getTemperature();
 
@@ -25,5 +26,12 @@ export class AppComponent {
   public readonly defrost$: Observable<DefrostModel[]> =
     this.dataService.getDefrostStatus();
 
-  constructor(private dataService: DataService) {}
+  constructor(
+    private dataService: DataService,
+    private matIconReg: MatIconRegistry
+  ) {}
+
+  ngOnInit(): void {
+    this.matIconReg.setDefaultFontSetClass('material-symbols-outlined');
+  }
 }

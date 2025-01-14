@@ -5,10 +5,17 @@ import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, RouterOutlet, CommonModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    RouterOutlet,
+    CommonModule,
+    HttpClientModule,
+    MatIconModule,
+  ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
