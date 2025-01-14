@@ -1,4 +1,4 @@
-<div *ngFor="let temparature of temperature$ | async">
+<!-- <div *ngFor="let temparature of temperature$ | async">
   temperature {{ temparature.value }} {{ temparature.timestamp }}
 </div>
 <div *ngFor="let compressorStatus of compressor$ | async">
@@ -9,5 +9,11 @@
 </div>
 <div *ngFor="let defrost of defrost$ | async">
   defrost {{ defrost.status }} {{ defrost.timestamp }}
+</div> -->
+<!-- <router-outlet></router-outlet> -->
+<div class="grid grid-cols-2">
+  <div class="col-span-1">1</div>
+  <div class="col-span-1">2</div>
+  <div class="col-span-1">3</div>
+  <div class="col-span-1">4</div>
 </div>
-<router-outlet></router-outlet>
