@@ -3,7 +3,7 @@
     <div class="tag-title">Temperatura</div>
     <div class="tag">
       <mat-icon>thermostat</mat-icon>
-      <div *ngIf="temperature$ | async as temparature">
+      <div *ngIf="temperature$ | async as temparature; else noData">
         {{ temparature[temparature.length - 1].value }} °C
       </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="tag-title">Wentylator</div>
     <div class="tag">
       <mat-icon>mode_fan</mat-icon>
-      <div *ngIf="fan$ | async as fan">
+      <div *ngIf="fan$ | async as fan; else noData">
         {{ fan[fan.length - 1].status | onOff }}
       </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="tag-title">Odszranianie</div>
     <div class="tag">
       <mat-icon>severe_cold</mat-icon>
-      <div *ngIf="defrost$ | async as defrost">
+      <div *ngIf="defrost$ | async as defrost; else noData">
         {{ defrost[defrost.length - 1].status | onOff }}
       </div>
     </div>
@@ -30,9 +30,10 @@
     <div class="tag-title">Kompresor</div>
     <div class="tag">
       <mat-icon>heat_pump</mat-icon>
-      <div *ngIf="compressor$ | async as copressor">
+      <div *ngIf="compressor$ | async as copressor; else noData">
         {{ copressor[copressor.length - 1].status | onOff }}
       </div>
     </div>
   </div>
 </div>
+<ng-template #noData>-</ng-template>
