@@ -11,12 +11,17 @@ body {
   margin: 0;
   padding: 2rem;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background-color: black;
+  background-color: var(--mat-sys-surface);
   color: white;
 }
 
 .tag {
   background-color: var(--mat-sys-primary-container);
   color: var(--mat-sys-on-secondary-container);
-  @apply rounded-full py-2 px-4 flex flex-row items-center;
+  @apply rounded-full py-2 px-4 pr-5 flex flex-row justify-between items-center;
+}
+
+.tag-title {
+  color: var(--mat-sys-on-secondary-container);
+  @apply text-xs ml-4;
 }

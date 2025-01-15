@@ -6,9 +6,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
+import { OnOffPipe } from './pipes/on-off.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, OnOffPipe],
   imports: [
     BrowserModule,
     RouterOutlet,

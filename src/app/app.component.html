@@ -12,8 +12,40 @@
 </div> -->
 <!-- <router-outlet></router-outlet> -->
 <div class="grid grid-cols-2 gap-4">
-  <div class="tag col-span-1"><mat-icon>thermostat</mat-icon></div>
-  <div class="tag col-span-1"><mat-icon>mode_fan</mat-icon></div>
-  <div class="tag col-span-1"><mat-icon>severe_cold</mat-icon></div>
-  <div class="tag col-span-1"><mat-icon>heat_pump</mat-icon></div>
+  <div class="col-span-1">
+    <div class="tag-title">Temperatura</div>
+    <div class="tag">
+      <mat-icon>thermostat</mat-icon>
+      <div *ngIf="temperature$ | async as temparature">
+        {{ temparature[temparature.length - 1].value }} °C
+      </div>
+    </div>
+  </div>
+  <div class="col-span-1">
+    <div class="tag-title">Wentylator</div>
+    <div class="tag">
+      <mat-icon>mode_fan</mat-icon>
+      <div *ngIf="fan$ | async as fan">
+        {{ fan[fan.length - 1].status | onOff }}
+      </div>
+    </div>
+  </div>
+  <div class="col-span-1">
+    <div class="tag-title">Odszranianie</div>
+    <div class="tag">
+      <mat-icon>severe_cold</mat-icon>
+      <div *ngIf="defrost$ | async as defrost">
+        {{ defrost[defrost.length - 1].status | onOff }}
+      </div>
+    </div>
+  </div>
+  <div class="col-span-1">
+    <div class="tag-title">Kompresor</div>
+    <div class="tag">
+      <mat-icon>heat_pump</mat-icon>
+      <div *ngIf="compressor$ | async as copressor">
+        {{ copressor[copressor.length - 1].status | onOff }}
+      </div>
+    </div>
+  </div>
 </div>
