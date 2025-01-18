@@ -9,7 +9,7 @@ body {
 }
 body {
   margin: 0;
-  padding: 2rem;
+  padding: 1rem;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: var(--mat-sys-surface);
   color: white;
@@ -24,4 +24,8 @@ body {
 .tag-title {
   color: var(--mat-sys-on-secondary-container);
   @apply text-xs ml-4;
+}
+
+.chart {
+  @apply bg-transparent w-full h-[15rem] block;
 }

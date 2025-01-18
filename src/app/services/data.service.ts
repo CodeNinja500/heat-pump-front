@@ -5,12 +5,13 @@ import { TemperatureModel } from '../models/temperature.model';
 import { CompressorModel } from '../models/compressor.model';
 import { FanModel } from '../models/fan.model';
 import { DefrostModel } from '../models/defrost.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  apiUrl: string = 'http://localhost:3000/api/data/';
+  apiUrl: string = `http://${environment.apiUrl}/api/data/`;
 
   constructor(private httpClient: HttpClient) {}
 

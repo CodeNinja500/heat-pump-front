@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatIconModule } from '@angular/material/icon';
 import { OnOffPipe } from './pipes/on-off.pipe';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [AppComponent, OnOffPipe],
@@ -16,6 +17,7 @@ import { OnOffPipe } from './pipes/on-off.pipe';
     CommonModule,
     HttpClientModule,
     MatIconModule,
+    HighchartsChartModule,
   ],
   providers: [provideAnimationsAsync()],
   bootstrap: [AppComponent],
