@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import { TemperatureModel } from './models/temperature.model';
 import { DataService } from './services/data.service';
 import { CompressorModel } from './models/compressor.model';
@@ -15,14 +15,8 @@ import { TemperatureResponse } from './models/temperature.response';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  public readonly temperature$: Observable<TemperatureModel[]> =
-    this.dataService
-      .getTemperature()
-      .pipe(
-        map((temperatures) =>
-          this.mapTemperatureListResponseToModel(temperatures)
-        )
-      );
+  public readonly temperature$: Observable<TemperatureResponse[]> =
+    this.dataService.getTemperature().pipe(shareReplay(1));
 
   public readonly compressor$: Observable<CompressorModel[]> = this.dataService
     .getCompressorStatus()
@@ -43,20 +37,6 @@ export class AppComponent implements OnInit {
 
   private sortByDateTime(data: any[]): any[] {
     return data.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1));
-  }
-
-  private mapTemperatureListResponseToModel(
-    temperatureList: TemperatureResponse[]
-  ): TemperatureModel[] {
-    return temperatureList.map((temperature) => {
-      const date = new Date(temperature.timestamp);
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-      return {
-        value: temperature.value,
-        time: `${hours}:${minutes}`,
-      };
-    });
   }
 
   ngOnInit(): void {

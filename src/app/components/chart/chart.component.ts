@@ -54,9 +54,17 @@ export class ChartComponent implements OnChanges {
       gridLineColor: this.chartGridLineColor,
     },
     xAxis: {
+      type: 'datetime',
       lineColor: this.chartLightColor,
-      labels: { style: { color: this.chartLightColor } },
+      labels: {
+        style: { color: this.chartLightColor },
+        format: '{value:%H:%M}',
+      },
       tickColor: this.chartLightColor,
+    },
+    tooltip: {
+      xDateFormat: '%H:%M:%S', // Tooltip in 24-hour format
+      pointFormat: '{series.name}: <b>{point.y}°C</b>',
     },
     credits: { enabled: false },
     legend: { enabled: false },
@@ -66,7 +74,11 @@ export class ChartComponent implements OnChanges {
     if (this.title) this.chartOptions.title!.text = this.title;
     if (this.series.length)
       this.chartOptions.series![0]! = {
-        data: this.series.map((entry) => [entry.time, entry.value]),
+        name: 'Temp.',
+        data: this.series.map((entry) => [
+          new Date(entry.timestamp).getTime(),
+          entry.value,
+        ]),
         type: 'areaspline',
       };
   }
