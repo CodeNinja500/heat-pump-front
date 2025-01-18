@@ -6,6 +6,7 @@ import { CompressorModel } from '../models/compressor.model';
 import { FanModel } from '../models/fan.model';
 import { DefrostModel } from '../models/defrost.model';
 import { environment } from '../../environments/environment';
+import { TemperatureResponse } from '../models/temperature.response';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,10 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getTemperature(): Observable<TemperatureModel[]> {
-    return this.httpClient.get<TemperatureModel[]>(this.apiUrl + 'temperature');
+  getTemperature(): Observable<TemperatureResponse[]> {
+    return this.httpClient.get<TemperatureResponse[]>(
+      this.apiUrl + 'temperature'
+    );
   }
 
   getCompressorStatus(): Observable<CompressorModel[]> {

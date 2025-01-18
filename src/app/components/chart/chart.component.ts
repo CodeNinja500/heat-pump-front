@@ -9,6 +9,7 @@ import * as Highcharts from 'highcharts';
 })
 export class ChartComponent implements OnChanges {
   @Input() title: string = '';
+  @Input() series: any[] = [];
 
   chartDarkColor: string = '#101414';
   chartLightColor: string = '#e5e7eb';
@@ -62,6 +63,11 @@ export class ChartComponent implements OnChanges {
   };
 
   ngOnChanges(): void {
-    this.chartOptions.title!.text = this.title;
+    if (this.title) this.chartOptions.title!.text = this.title;
+    if (this.series.length)
+      this.chartOptions.series![0]! = {
+        data: this.series.map((entry) => [entry.time, entry.value]),
+        type: 'areaspline',
+      };
   }
 }

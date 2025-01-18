@@ -38,4 +38,9 @@
 </div>
 <ng-template #noData>-</ng-template>
 
-<app-chart class="mt-8 block" title="Temperatura"></app-chart>
+<app-chart
+  *ngIf="temperature$ | async as temperature"
+  class="mt-8 block"
+  title="Temperatura"
+  [series]="temperature"
+></app-chart>

@@ -6,6 +6,7 @@ import { CompressorModel } from './models/compressor.model';
 import { FanModel } from './models/fan.model';
 import { DefrostModel } from './models/defrost.model';
 import { MatIconRegistry } from '@angular/material/icon';
+import { TemperatureResponse } from './models/temperature.response';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,11 @@ export class AppComponent implements OnInit {
   public readonly temperature$: Observable<TemperatureModel[]> =
     this.dataService
       .getTemperature()
-      .pipe(map((temperatures) => this.sortByDateTime(temperatures)));
+      .pipe(
+        map((temperatures) =>
+          this.mapTemperatureListResponseToModel(temperatures)
+        )
+      );
 
   public readonly compressor$: Observable<CompressorModel[]> = this.dataService
     .getCompressorStatus()
@@ -38,6 +43,20 @@ export class AppComponent implements OnInit {
 
   private sortByDateTime(data: any[]): any[] {
     return data.sort((a: any, b: any) => (a.timestamp > b.timestamp ? 1 : -1));
+  }
+
+  private mapTemperatureListResponseToModel(
+    temperatureList: TemperatureResponse[]
+  ): TemperatureModel[] {
+    return temperatureList.map((temperature) => {
+      const date = new Date(temperature.timestamp);
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      return {
+        value: temperature.value,
+        time: `${hours}:${minutes}`,
+      };
+    });
   }
 
   ngOnInit(): void {
