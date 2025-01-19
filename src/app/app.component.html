@@ -13,7 +13,7 @@
     <div class="tag">
       <mat-icon>mode_fan</mat-icon>
       <div *ngIf="fan$ | async as fan; else noData">
-        {{ fan[fan.length - 1].status | onOff }}
+        {{ fan[fan.length - 1].value | onOff }}
       </div>
     </div>
   </div>
@@ -22,7 +22,7 @@
     <div class="tag">
       <mat-icon>severe_cold</mat-icon>
       <div *ngIf="defrost$ | async as defrost; else noData">
-        {{ defrost[defrost.length - 1].status | onOff }}
+        {{ defrost[defrost.length - 1].value | onOff }}
       </div>
     </div>
   </div>
@@ -31,16 +31,18 @@
     <div class="tag">
       <mat-icon>heat_pump</mat-icon>
       <div *ngIf="compressor$ | async as copressor; else noData">
-        {{ copressor[copressor.length - 1].status | onOff }}
+        {{ copressor[copressor.length - 1].value| onOff }}
       </div>
     </div>
   </div>
 </div>
 <ng-template #noData>-</ng-template>
 
-<app-chart
-  *ngIf="temperature$ | async as temperature"
-  class="mt-8 block"
-  title="Temperatura (°C)"
-  [series]="temperature"
-></app-chart>
+<app-chart *ngIf="temperature$ | async as temperature" class="mt-8 block h-[15rem]" title="Temperatura (°C)" seriesName="Temp."
+  [seriesData]="temperature"></app-chart>
+<app-chart *ngIf="compressor$ | async as compressor" class="mt-8 block h-[7rem]" title="Kompresor" seriesName="Status"
+  [seriesData]="compressor" [yAxisLabels]="[0,1]"></app-chart>
+<app-chart *ngIf="fan$ | async as fan" class="mt-8 block h-[7rem]" title="Wentylator" seriesName="Status" [seriesData]="fan"
+  [yAxisLabels]="[0,1]"></app-chart>
+<app-chart *ngIf="defrost$ | async as defrost" class="my-8 block h-[7rem]" title="Odszranianie" seriesName="Status" [seriesData]="defrost"
+  [yAxisLabels]="[0,1]"></app-chart>

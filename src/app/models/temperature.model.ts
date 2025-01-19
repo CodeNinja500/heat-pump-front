@@ -1,4 +1,4 @@
 export interface TemperatureModel {
   readonly value: number;
-  readonly time: string;
+  readonly timestamp: string;
 }
