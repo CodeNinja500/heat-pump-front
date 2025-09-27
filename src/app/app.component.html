@@ -38,11 +38,15 @@
 </div>
 <ng-template #noData>-</ng-template>
 
-<app-chart *ngIf="temperature$ | async as temperature" class="mt-8 block h-[15rem]" title="Temperatura (°C)" seriesName="Temp."
-  [seriesData]="temperature"></app-chart>
-<app-chart *ngIf="compressor$ | async as compressor" class="mt-8 block h-[7rem]" title="Kompresor" seriesName="Status"
-  [seriesData]="compressor" [yAxisLabels]="[0,1]"></app-chart>
-<app-chart *ngIf="fan$ | async as fan" class="mt-8 block h-[7rem]" title="Wentylator" seriesName="Status" [seriesData]="fan"
-  [yAxisLabels]="[0,1]"></app-chart>
-<app-chart *ngIf="defrost$ | async as defrost" class="my-8 block h-[7rem]" title="Odszranianie" seriesName="Status" [seriesData]="defrost"
-  [yAxisLabels]="[0,1]"></app-chart>
+<app-range-select></app-range-select>
+
+<ng-container *ngIf="selectedTimeRange$|async as selectedTimeRange">
+  <app-chart *ngIf="temperature$ | async as temperature" class="mb-8 block h-[15rem]" title="Temperatura (°C)" seriesName="Temp."
+    [seriesData]="temperature" [rangeInMiliseconds]="selectedTimeRange"></app-chart>
+  <app-chart *ngIf="compressor$ | async as compressor" class="mb-8 block h-[7rem]" title="Kompresor" seriesName="Status"
+    [seriesData]="compressor" [yAxisLabels]="[0,1]" [rangeInMiliseconds]="selectedTimeRange"></app-chart>
+  <app-chart *ngIf="fan$ | async as fan" class="mb-8 block h-[7rem]" title="Wentylator" seriesName="Status" [seriesData]="fan"
+    [yAxisLabels]="[0,1]" [rangeInMiliseconds]="selectedTimeRange"></app-chart>
+  <app-chart *ngIf="defrost$ | async as defrost" class="mb-8 block h-[7rem]" title="Odszranianie" seriesName="Status" [seriesData]="defrost"
+    [yAxisLabels]="[0,1]" [rangeInMiliseconds]="selectedTimeRange"></app-chart>
+</ng-container>

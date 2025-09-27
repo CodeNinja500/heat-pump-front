@@ -8,6 +8,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatIconModule } from '@angular/material/icon';
 import { OnOffPipe } from './pipes/on-off.pipe';
 import { ChartComponent } from './components/chart/chart.component';
+import { RangeSelectComponent } from './components/range-select/range-select.component';
 
 @NgModule({
   declarations: [AppComponent, OnOffPipe],
@@ -18,8 +19,9 @@ import { ChartComponent } from './components/chart/chart.component';
     HttpClientModule,
     MatIconModule,
     ChartComponent,
+    RangeSelectComponent
   ],
-  providers: [provideAnimationsAsync()],
-  bootstrap: [AppComponent],
+  providers: [provideAnimationsAsync(), { provide: Storage, useValue: localStorage }],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

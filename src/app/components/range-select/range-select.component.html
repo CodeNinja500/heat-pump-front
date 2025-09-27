@@ -1,0 +1,4 @@
+<div class='my-3 flex flex-row justify-end align-center' *ngIf="selectedTimeRange$|async as selectedTimeRange">
+    <button *ngFor="let option of rangeOptions" mat-button [ngClass]="{'!border-solid !border-[1px]':selectedTimeRange==option.value}"
+        (click)='setTimeRange(option.value)'>{{option.text}}</button>
+</div>

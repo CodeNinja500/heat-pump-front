@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
 import { max, Observable, Subject } from 'rxjs';
@@ -16,6 +16,9 @@ export class ChartComponent implements OnChanges {
   @Input() yMinValue: number | undefined = undefined;
   @Input() yMaxValue: number | undefined = undefined;
   @Input() yAxisLabels: number[] | undefined = undefined;
+  @Input() rangeInMiliseconds: number = 24 * 3600 * 1000;
+
+  @ViewChild('chart') chart!: Highcharts.Chart;
 
   chartDarkColor: string = '#101414';
   chartLightColor: string = '#e5e7eb';
@@ -23,6 +26,8 @@ export class ChartComponent implements OnChanges {
   chartGridLineColor: string = '#363a39';
 
   Highcharts: typeof Highcharts = Highcharts;
+
+  update: boolean = false;
 
   chartOptions: Highcharts.Options = {
     accessibility: { enabled: false },
@@ -64,6 +69,8 @@ export class ChartComponent implements OnChanges {
     },
     xAxis: {
       type: 'datetime',
+      min: Date.now() - this.rangeInMiliseconds, // 24 hours ago
+      max: Date.now(), // now
       lineColor: this.chartLightColor,
       labels: {
         style: { color: this.chartLightColor },
@@ -79,7 +86,7 @@ export class ChartComponent implements OnChanges {
     legend: { enabled: false }
   };
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (this.title) this.chartOptions.title!.text = this.title;
     if (this.seriesData.length)
       this.chartOptions.series![0]! = {
@@ -94,5 +101,12 @@ export class ChartComponent implements OnChanges {
         gridLineColor: this.chartGridLineColor,
         tickPositions: this.yAxisLabels
       };
+    if ('rangeInMiliseconds' in changes) {
+      this.chartOptions.xAxis! = {
+        ...this.chartOptions.xAxis,
+        min: Date.now() - this.rangeInMiliseconds
+      };
+      this.update = true;
+    }
   }
 }
