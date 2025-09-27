@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { HighchartsChartModule } from 'highcharts-angular';
-import * as Highcharts from 'highcharts';
+import * as Highcharts from 'highcharts/highstock';
 import { max, Observable, Subject } from 'rxjs';
 import { ChartDataModel } from 'src/app/models/chartData.model';
 
@@ -16,7 +16,7 @@ export class ChartComponent implements OnChanges {
   @Input() yMinValue: number | undefined = undefined;
   @Input() yMaxValue: number | undefined = undefined;
   @Input() yAxisLabels: number[] | undefined = undefined;
-  @Input() rangeInMiliseconds: number = 24 * 3600 * 1000;
+  @Input() xScale: number = 1;
 
   @ViewChild('chart') chart!: Highcharts.Chart;
 
@@ -37,7 +37,11 @@ export class ChartComponent implements OnChanges {
       spacingRight: 0,
       spacingLeft: 0,
       spacingTop: 0,
-      spacingBottom: 0
+      spacingBottom: 0,
+      scrollablePlotArea: {
+        minWidth: 300,
+        scrollPositionX: 1
+      }
     },
     title: {
       text: 'Chart title',
@@ -69,7 +73,7 @@ export class ChartComponent implements OnChanges {
     },
     xAxis: {
       type: 'datetime',
-      min: Date.now() - this.rangeInMiliseconds, // 24 hours ago
+      min: Date.now() - 24 * 3600 * 1000, // 24 hours ago
       max: Date.now(), // now
       lineColor: this.chartLightColor,
       labels: {
@@ -101,10 +105,10 @@ export class ChartComponent implements OnChanges {
         gridLineColor: this.chartGridLineColor,
         tickPositions: this.yAxisLabels
       };
-    if ('rangeInMiliseconds' in changes) {
-      this.chartOptions.xAxis! = {
-        ...this.chartOptions.xAxis,
-        min: Date.now() - this.rangeInMiliseconds
+    if ('xScale' in changes) {
+      this.chartOptions.chart!.scrollablePlotArea = {
+        minWidth: 300 * this.xScale,
+        scrollPositionX: 0
       };
       this.update = true;
     }

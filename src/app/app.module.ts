@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { OnOffPipe } from './pipes/on-off.pipe';
 import { ChartComponent } from './components/chart/chart.component';
 import { RangeSelectComponent } from './components/range-select/range-select.component';
+import { ZoomPanelComponent } from './components/zoom-panel/zoom-panel.component';
 
 @NgModule({
   declarations: [AppComponent, OnOffPipe],
@@ -19,7 +20,8 @@ import { RangeSelectComponent } from './components/range-select/range-select.com
     HttpClientModule,
     MatIconModule,
     ChartComponent,
-    RangeSelectComponent
+    RangeSelectComponent,
+    ZoomPanelComponent
   ],
   providers: [provideAnimationsAsync(), { provide: Storage, useValue: localStorage }],
   bootstrap: [AppComponent]

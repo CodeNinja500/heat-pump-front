@@ -6,6 +6,7 @@ import { TemperatureModel } from './models/temperature.model';
 import { PeriferialStatusModel } from './models/periferialStatus.model';
 import { ChartDataModel } from './models/chartData.model';
 import { TimeService } from './services/time.service';
+import { ScaleService } from './services/scale.service';
 
 @Component({
   selector: 'app-root',
@@ -29,11 +30,13 @@ export class AppComponent implements OnInit {
     .pipe(map((data) => this.mapStatusToValue(data)));
 
   public readonly selectedTimeRange$ = this.timeService.selectedTimeRange$;
+  public readonly selectedScaleLevel$ = this.scaleService.scale$;
 
   constructor(
     private dataService: DataService,
     private matIconReg: MatIconRegistry,
-    private timeService: TimeService
+    private timeService: TimeService,
+    private scaleService: ScaleService
   ) {}
 
   private sortByDateTime(data: any[]): any[] {
