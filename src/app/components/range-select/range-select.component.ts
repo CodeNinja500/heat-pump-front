@@ -30,19 +30,27 @@ export class RangeSelectComponent implements OnInit {
     }
   ];
 
+  storageKey = 'TIME_RANGE';
+
   public readonly selectedTimeRange$ = this.timeService.selectedTimeRange$;
 
   constructor(private timeService: TimeService, private _storage: Storage) {}
 
   setTimeRange(value: number) {
     this.timeService.setTimeRange(value);
+    this._storage.setItem(this.storageKey, value.toString());
   }
 
-  setDefaultTimeRange() {
-    this.setTimeRange(this.rangeOptions[1].value);
+  setInitialTimeRange() {
+    const savedTimeRange = this._storage.getItem(this.storageKey);
+    if (savedTimeRange) {
+      this.setTimeRange(+savedTimeRange);
+    } else {
+      this.setTimeRange(this.rangeOptions[1].value);
+    }
   }
 
   ngOnInit(): void {
-    this.setDefaultTimeRange();
+    this.setInitialTimeRange();
   }
 }
