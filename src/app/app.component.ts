@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   private mapStatusToValue(data: PeriferialStatusModel[]): ChartDataModel[] {
-    return data.map((entry) => ({ value: +entry.status, timestamp: entry.timestamp }));
+    return data.map((entry) => ({ value: +entry.value, timeStamp: entry.timeStamp }));
   }
 
   ngOnInit(): void {

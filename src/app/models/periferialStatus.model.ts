@@ -1,4 +1,4 @@
 export interface PeriferialStatusModel {
-  status: boolean;
-  timestamp: string;
+  value: boolean;
+  timeStamp: string;
 }

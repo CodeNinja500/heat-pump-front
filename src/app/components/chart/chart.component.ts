@@ -27,6 +27,8 @@ export class ChartComponent implements OnChanges {
 
   Highcharts: typeof Highcharts = Highcharts;
 
+  timeZoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+
   update: boolean = false;
 
   chartOptions: Highcharts.Options = {
@@ -69,8 +71,8 @@ export class ChartComponent implements OnChanges {
     },
     xAxis: {
       type: 'datetime',
-      min: Date.now() - this.rangeInMiliseconds, // 24 hours ago
-      max: Date.now(), // now
+      min: Date.now() - this.timeZoneOffset - this.rangeInMiliseconds, // 24 hours ago
+      max: Date.now() - this.timeZoneOffset, // now
       lineColor: this.chartLightColor,
       labels: {
         style: { color: this.chartLightColor },
@@ -91,7 +93,7 @@ export class ChartComponent implements OnChanges {
     if (this.seriesData.length)
       this.chartOptions.series![0]! = {
         name: this.title,
-        data: this.seriesData.map((entry) => [new Date(entry.timestamp).getTime(), entry.value]),
+        data: this.seriesData.map((entry) => [new Date(entry.timeStamp).getTime() - this.timeZoneOffset, entry.value]),
         type: 'areaspline'
       };
     if (this.yAxisLabels)
@@ -104,7 +106,7 @@ export class ChartComponent implements OnChanges {
     if ('rangeInMiliseconds' in changes) {
       this.chartOptions.xAxis! = {
         ...this.chartOptions.xAxis,
-        min: Date.now() - this.rangeInMiliseconds
+        min: Date.now() - this.timeZoneOffset - this.rangeInMiliseconds
       };
       this.update = true;
     }

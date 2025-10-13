@@ -4,7 +4,7 @@
     <div class="tag">
       <mat-icon>thermostat</mat-icon>
       <div *ngIf="temperature$ | async as temparature; else noData">
-        {{ temparature[temparature.length - 1].value }} °C
+        {{ temparature[temparature.length - 1].value | number : '1.2-2' }} °C
       </div>
     </div>
   </div>

@@ -9,7 +9,7 @@ import { PeriferialStatusModel } from '../models/periferialStatus.model';
   providedIn: 'root'
 })
 export class DataService {
-  apiUrl: string = `http://${environment.apiUrl}/api/data/`;
+  apiUrl: string = `http://${environment.apiUrl}/api/`;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -22,10 +22,10 @@ export class DataService {
   }
 
   getFanStatus(): Observable<PeriferialStatusModel[]> {
-    return this.httpClient.get<PeriferialStatusModel[]>(this.apiUrl + 'fan');
+    return this.httpClient.get<PeriferialStatusModel[]>(this.apiUrl + 'ventilator');
   }
 
   getDefrostStatus(): Observable<PeriferialStatusModel[]> {
-    return this.httpClient.get<PeriferialStatusModel[]>(this.apiUrl + 'defrost');
+    return this.httpClient.get<PeriferialStatusModel[]>(this.apiUrl + 'defroster');
   }
 }
